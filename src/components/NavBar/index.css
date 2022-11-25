@@ -1,0 +1,39 @@
+/* Write your code here. */
+.nav-container {
+  background-color: #9796f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 70px;
+  padding-right: 70px;
+  height: 100px;
+  width: 100%;
+}
+.logo-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.emoji-logo {
+  height: 40px;
+  width: 40px;
+}
+.emoji-game-heading {
+  color: #ffffff;
+  font-size: 20px;
+}
+
+.score-container {
+  display: flex;
+  align-items: center;
+}
+.score {
+  color: #ffffff;
+  margin-right: 30px;
+  font-weight: 500;
+}
+.top-score {
+  color: #ffffff;
+  margin-right: 30px;
+  font-weight: 500;
+}

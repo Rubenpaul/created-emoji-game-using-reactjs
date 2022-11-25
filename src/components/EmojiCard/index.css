@@ -1,0 +1,25 @@
+/* Write your code here. */
+.Emoji-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff33;
+  border: 1px solid #ffffff30;
+  height: 160px;
+  width: 160px;
+  border-radius: 14px;
+  margin: 10px;
+}
+.emoji-image {
+  height: 60px;
+  width: 60px;
+}
+.button {
+  border: 0px;
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+  outline: none;
+  cursor: pointer;
+}
