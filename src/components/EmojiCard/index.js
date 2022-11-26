@@ -1,12 +1,13 @@
 // Write your code here.
+
 import './index.css'
 
 const EmojiCard = props => {
-  const {EmojiDetails} = props
+  const {EmojiDetails, EmojiClicked} = props
   const {id, emojiName, emojiUrl} = EmojiDetails
 
   const onClickEmoji = () => {
-    console.log('emoji button triggered')
+    EmojiClicked(id)
   }
 
   return (
