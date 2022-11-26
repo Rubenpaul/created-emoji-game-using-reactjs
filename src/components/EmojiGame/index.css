@@ -1,4 +1,5 @@
 /* Write your code here. */
+
 .app-container {
   background-image: linear-gradient(to bottom right, #9796f0, #fbc7d4);
   display: flex;
@@ -12,4 +13,8 @@
   height: 600px;
   width: 750px;
   padding: 10px;
+}
+
+.new-color {
+  color: transparent;
 }
