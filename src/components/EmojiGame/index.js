@@ -25,51 +25,56 @@ const shuffledEmojisList = () => {
 class EmojiGame extends Component {
   state = {
     score: 0,
-    prevEmojiid: 0,
     isGameEnds: false,
     topScore: 0,
     isNavScoreRemove: false,
+    emojiItemList: [],
   }
 
-  playAgain = score => {
+  playAgain = result => {
     const {topScore} = this.state
 
-    if (score > topScore) {
-      this.setState({topScore: score})
+    if (result > topScore) {
+      this.setState({topScore: result})
     }
     this.setState(prevState => ({
       isGameEnds: !prevState.isGameEnds,
       isNavScoreRemove: !prevState.isNavScoreRemove,
+      emojiItemList: [],
       score: 0,
     }))
   }
 
   EmojiClicked = id => {
-    const {prevEmojiid, score} = this.state
+    const {score, emojiItemList} = this.state
 
-    if (prevEmojiid !== id) {
+    if (emojiItemList.includes(id)) {
       this.setState(prevState => ({
-        prevEmojiid: id,
+        isGameEnds: !prevState.isGameEnds,
+        isNavScoreRemove: !prevState.isNavScoreRemove,
+      }))
+    } else if (score === 11) {
+      this.setState(prevState => ({
+        isGameEnds: !prevState.isGameEnds,
+        isNavScoreRemove: !prevState.isNavScoreRemove,
+      }))
+    } else {
+      this.setState(prevState => ({
+        emojiItemList: [...prevState.emojiItemList, id],
         score: prevState.score + 1,
       }))
-      if (score === 11) {
-        this.setState(prevState => ({
-          isGameEnds: !prevState.isGameEnds,
-          isNavScoreRemove: !prevState.isNavScoreRemove,
-        }))
-      }
-    } else {
-      this.setState(
-        this.setState(prevState => ({
-          isGameEnds: !prevState.isGameEnds,
-          isNavScoreRemove: !prevState.isNavScoreRemove,
-        })),
-      )
     }
   }
 
   render() {
-    const {score, isGameEnds, topScore, isNavScoreRemove} = this.state
+    const {
+      score,
+      isGameEnds,
+      topScore,
+      isNavScoreRemove,
+      emojiItemList,
+    } = this.state
+    console.log(emojiItemList)
 
     const shuffledEmojisList = () => {
       const {emojisList} = this.props
