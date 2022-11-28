@@ -23,38 +23,53 @@ const shuffledEmojisList = () => {
 // Write your code here.
 
 class EmojiGame extends Component {
-  state = {score: 0, prevEmojiid: 0, topScore: 0}
+  state = {
+    score: 0,
+    prevEmojiid: 0,
+    isGameEnds: false,
+    topScore: 0,
+    isNavScoreRemove: false,
+  }
 
-  playAgain = () => {
+  playAgain = score => {
     const {topScore} = this.state
-    console.log(topScore)
+
+    if (score > topScore) {
+      this.setState({topScore: score})
+    }
+    this.setState(prevState => ({
+      isGameEnds: !prevState.isGameEnds,
+      isNavScoreRemove: !prevState.isNavScoreRemove,
+      score: 0,
+    }))
   }
 
   EmojiClicked = id => {
-    const {prevEmojiid, score, topScore} = this.state
+    const {prevEmojiid, score} = this.state
 
     if (prevEmojiid !== id) {
-      if (score < 12) {
+      this.setState(prevState => ({
+        prevEmojiid: id,
+        score: prevState.score + 1,
+      }))
+      if (score === 11) {
         this.setState(prevState => ({
-          prevEmojiid: id,
-          score: prevState.score + 1,
-          topScore: prevState.topScore + 1,
+          isGameEnds: !prevState.isGameEnds,
+          isNavScoreRemove: !prevState.isNavScoreRemove,
         }))
       }
     } else {
       this.setState(
         this.setState(prevState => ({
-          score: prevState.score - 1,
+          isGameEnds: !prevState.isGameEnds,
+          isNavScoreRemove: !prevState.isNavScoreRemove,
         })),
       )
     }
-
-    localStorage.setItem('prevTopScore', `${topScore}`)
   }
 
   render() {
-    const {score} = this.state
-    console.log(score)
+    const {score, isGameEnds, topScore, isNavScoreRemove} = this.state
 
     const shuffledEmojisList = () => {
       const {emojisList} = this.props
@@ -65,11 +80,13 @@ class EmojiGame extends Component {
 
     return (
       <div className="app-container">
-        {score !== 0 && score === 12 ? (
-          <WinOrLoseCard score={score} playAgain={this.playAgain} />
-        ) : (
+        <NavBar
+          score={score}
+          topScore={topScore}
+          isNavScoreRemove={isNavScoreRemove}
+        />
+        {isGameEnds !== true ? (
           <>
-            <NavBar score={score} topScore={topScore} />
             <ul className="emoji-list-container">
               {emojisList.map(eachEmoji => (
                 <EmojiCard
@@ -81,6 +98,8 @@ class EmojiGame extends Component {
               ))}
             </ul>
           </>
+        ) : (
+          <WinOrLoseCard score={score} playAgain={this.playAgain} />
         )}
       </div>
     )
