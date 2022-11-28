@@ -7,8 +7,10 @@ const WinOrLoseCard = props => {
   let url
   let resultText
 
+  const result = score === 11 ? score + 1 : score
+
   let scoreResult
-  if (score === 12) {
+  if (result === 12) {
     url = 'https://assets.ccbp.in/frontend/react-js/won-game-img.png'
     resultText = 'You Won'
     scoreResult = 'Best Score'
@@ -19,7 +21,7 @@ const WinOrLoseCard = props => {
   }
 
   const onClickPlayAgain = () => {
-    playAgain(score)
+    playAgain(result)
   }
 
   return (
@@ -28,7 +30,7 @@ const WinOrLoseCard = props => {
         <div className="container">
           <h1 className="match-result">{resultText}</h1>
           <p className="match-score">{scoreResult}</p>
-          <p className="span">{`${score}/12`}</p>
+          <p className="span">{`${result}/12`}</p>
           <div className="play-again-container">
             <button
               className="play-again-btn"
